@@ -13,7 +13,7 @@ struct rsocket create_rsocket(char* portnum, char* servip){
     ai.ai_socktype = SOCK_STREAM;
 
     if(portnum == NULL || servip == NULL ){
-        fprintf(stderr, "config failed, null parameters\n" );
+        //printf(stderr, "config failed, null parameters\n" );
     }else {
        new_socket.portnum = portnum;
        new_socket.servip  = servip;
@@ -32,7 +32,7 @@ struct rsocket create_default_rsocket(){
     struct addrinfo ai;
     memset(&ai, 0, sizeof ai);
 
-    printf("memory set \n" );
+    //printf("memory set \n" );
 
     ai.ai_family   = AF_UNSPEC;
     ai.ai_socktype = SOCK_STREAM;
@@ -42,7 +42,7 @@ struct rsocket create_default_rsocket(){
 
 
     initialize_socket(&ai,&new_socket);
-    printf("initialized \n" );
+    //printf("initialized \n" );
 
     return new_socket;
 } 
@@ -52,7 +52,7 @@ void initialize_socket(struct addrinfo* ai,struct rsocket* rs){
     struct addrinfo* servinf;
     int status = getaddrinfo(rs->servip,rs->portnum,ai,&servinf);
     if ( status < 0 ){
-         fprintf(stderr,"getaddrinfo failed");
+         //printf(stderr,"getaddrinfo failed");
     }
 
 
@@ -65,7 +65,7 @@ void connect_to_socket(struct rsocket* rs){
     int rc = 0;
     rc = connect(rs->sockfd,rs->servinf->ai_addr,rs->servinf->ai_addrlen);
     if (rc < 0 ){
-        fprintf(stderr, "failed to connect \n");
+        //printf(stderr, "failed to connect \n");
     }
 }
 
@@ -78,11 +78,11 @@ char* read_from_server(struct rsocket* rs,int len){
     msg = (char*) malloc(len*(sizeof(char)));
     int numbytes = recv(rs->sockfd,msg,len-1,0);
     if (numbytes == -1){
-       fprintf(stderr,"recv failed");
+       //printf(stderr,"recv failed");
     }
     //*(&msg + numbytes) = '\0';
     msg[numbytes] = '\0';
-    printf("client: recieved '%s'\n", msg);
+    //printf("client: recieved '%s'\n", msg);
     return msg;
 }
 
@@ -92,7 +92,7 @@ void write_to_server(struct rsocket* rs,char* msg){
     int len = strlen(msg);
     rc = send(rs->sockfd,msg,len,0);    
     if (rc == -1){
-        fprintf(stderr,"send fail");
+        //printf(stderr,"send fail");
     }
 }
 
@@ -103,11 +103,11 @@ int main(int argc, char *argv[]){
 
 
     rs = create_default_rsocket();
-    printf("%s\n",rs.servip );
-    printf("%p\n",&rs );
+    //printf("%s\n",rs.servip );
+    //printf("%p\n",&rs );
     connect_to_socket(&rs);
     write_to_server(&rs,"Salutations");
     char* msg = read_from_server(&rs,MAXCHAR);
-    printf("%s\n", msg);
+    //printf("%s\n", msg);
 }
   */            

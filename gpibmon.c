@@ -50,8 +50,8 @@ void  read_net_data(FILE* inputfp, net_data* nd){
          tok = strtok(filebuffer, " ");
          while(tok != NULL){
            if(record_flag == 0){
-              if(i == 0) {nd->tx = atof(strdup(tok));printf("%s ,",strdup(tok));}
-              if(i == 8) {nd->rx = atof(strdup(tok));printf("%s \n",strdup(tok));}
+              if(i == 0) {nd->tx = atof(strdup(tok));//printf("%s ,",strdup(tok));}
+              if(i == 8) {nd->rx = atof(strdup(tok));//printf("%s \n",strdup(tok));}
               ++i;
            } 
            if( strcmp(istr, tok) == 0  ) record_flag = 0;
@@ -90,7 +90,7 @@ void write_net_data(WINDOW* w, double* buffer, int p){
      int limit = (p+1)%40;
      while (  p  != limit ){
          double val = (buffer[p] /  max)*(y_max -1);
-         printf("%f ,", val);
+         ////printf("%f ,", val);
          if (val > 10e6) val = (double)y_max -1;
          for (int j =y_max; j >=  0 ; --j){
              c = (val > j) ? 'X' : ' ';
@@ -100,9 +100,9 @@ void write_net_data(WINDOW* w, double* buffer, int p){
          if (p <  0) p = 39;
          ++i; 
      }
-     printf("\n %f \n \n ",max);
-}
+     ////printf("\n %f \n \n ",max);
 
+}
 void initialize_windows(){
    hd_win = newwin(MAX_Y/3.0, MAX_X, 0 , 0);
    rx_win = newwin(MAX_Y/3.0, MAX_X, MAX_Y/3 ,0);
@@ -110,7 +110,7 @@ void initialize_windows(){
 } 
 
 void initialize_tty(){
-    outputfp = fopen("/dev/tty1","w+");
+    outputfp = fopen("/home/jpdef/test_gui.txt","w+");
     s = newterm("xterm",outputfp,outputfp);
     set_term(s);
     getmaxyx(stdscr,MAX_Y, MAX_X);
@@ -127,17 +127,8 @@ void clean_tty(SCREEN *s){
     delscreen(s);
 }
 
-int main(int argc, char **argv){
-    //Initialize file
-    inputfp  = fopen("/proc/net/dev","r");
-  
-    initialize_tty();
-    initialize_windows(); 
-    rmon_connect();
-
-    double* rx_buffer = (double*) calloc(MAX_X,sizeof(double));
-    double* tx_buffer = (double*) calloc(MAX_X,sizeof(double));
-  
+void print_screen_header(){
+    
     start_color(); 
     init_pair(1,COLOR_RED,COLOR_BLACK);
     init_pair(2,COLOR_GREEN,COLOR_BLACK);
@@ -153,6 +144,21 @@ int main(int argc, char **argv){
     wmove(hd_win, 7, 20);
     wprintw(hd_win,"%s","Bandwidth Monitor");
     wrefresh(hd_win);
+
+}
+
+
+int main(int argc, char **argv){
+    //Initialize file
+    inputfp  = fopen("/proc/net/dev","r");
+  
+    initialize_tty();
+    initialize_windows(); 
+    rmon_connect();
+
+    double* rx_buffer = (double*) calloc(MAX_X,sizeof(double));
+    double* tx_buffer = (double*) calloc(MAX_X,sizeof(double));
+  
     
 
     int i = 0;
