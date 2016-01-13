@@ -13,7 +13,7 @@
 
 #define BACKLOG  10    //how many pending24 connections
 #define PORTNUM  "23" //port of the client (telnet)
-#define SERVIP   "192.168.168.1"
+#define SERVIP   "127.0.0.1"//"192.168.168.1"
 #define MAXCHAR  1024
 
 

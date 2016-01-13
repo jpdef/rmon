@@ -45,6 +45,10 @@ void get_net_data(net_data* nd){
        parse_net_data(&datastr,nd);        
 }
 
+
+
+
+
 /*
 int main(){
   //char* datastr = (char* ) malloc(MAXCHAR*sizeof(char));
