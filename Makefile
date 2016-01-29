@@ -1,14 +1,24 @@
-CC=g++
-CFLAGS=-Wall -std=c++11
-LIBS=-lncurses
-DEPS= rmonclient.h rsocket.h nwindow.c nwindow.h
-OBJ = gpibmon.o rmonclient.o rsocket.o nwindow.o
+CC        = g++
+CFLAGS    = -Wall -std=c++11 
+LIBS      = -lncurses
+SRCDIR1   = src/rmon
+SRCDIR2   = src/nwin
+OBJDIR    = build/
+VPATH     = $(SRCDIR1):$(SRCDIR2)
+SRCS      = $(shell find -name "*.cpp" -printf "%f\n") 
+OBJS      = $(addprefix build/,$(patsubst %.cpp, %.o,$(SRCS)))
+BIN       = rmon
 
-%.o : %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+print-% :
+	@echo '$*=$($*)'
 
-gpibmon : $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+$(BIN) : $(OBJS)
+	@echo $SRCS
+	$(CC) -o $@ $^ $(LIBS)
+
+$(OBJDIR)%.o : %.cpp
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 clean :
-	rm *.o gpibmon
+	rm build/*.o
+	rm $(BIN)

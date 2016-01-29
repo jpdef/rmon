@@ -6,7 +6,7 @@
 #include <ncurses.h>
 
 #include "rmonclient.h"
-#include "nwindow.h"
+#include "../nwin/nwindow.h"
 
 #define MAX_CHAR 256
 
@@ -37,6 +37,7 @@ void push_data(FILE* input_fp,double* tx_buffer,double* rx_buffer,int index){
 }
 
 int main(int argc, char **argv){
+   /*
     //Initialize files
     inputfp  = fopen("/proc/net/dev","r");
     outputfp = stdout;//fopen("/dev/tty1","w+");//stdout;
@@ -53,8 +54,7 @@ int main(int argc, char **argv){
 
     //print_to_window(scr,0,"hello world\n");
     
-    /*
-    //Connect to router
+        //Connect to router
     fprintf(stdout, "%s\n","try to connect" );
     rmon_connect();
 
@@ -80,10 +80,10 @@ int main(int argc, char **argv){
     
     }
     
-     */
     /*clean up stuff*/
-
+    /*
     clean_nscreen(scr);
+    */
     return 0; 
 }
 
