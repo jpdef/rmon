@@ -17,7 +17,7 @@ Nscreen::Nscreen(){
 Nscreen::Nscreen(int numwindows){
     //default constructor uses stdin and out
     this->numwindows = numwindows;
-    scrptr = newterm("xterm",stdin,stdout);    
+    scrptr = newterm("xterm",stdout,stdin);    
     set_term(scrptr);
     getmaxyx(stdscr,MAX_Y, MAX_X);
 

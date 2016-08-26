@@ -1,6 +1,7 @@
 #ifndef RMONCLIENT_H
 #define RMONCLIENT_H "rmonclient.h"
 #include <map>
+#include <string>
 #include "rsocket.h"
 
 static char* istr = "br0:";
@@ -18,6 +19,7 @@ static struct rsocket rs;
 
 void  rmon_connect();
 void  run_cmd(char** datastr, int cmd);
+void  parse_nd(char* datastr, net_data* nd);
 void  parse_net_data(char** datastr, net_data* nd);
 void  get_net_data(net_data* nd);
 

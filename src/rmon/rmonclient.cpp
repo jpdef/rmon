@@ -19,24 +19,24 @@ void  run_cmd(char** datastr,int cmd){
       *(datastr) = read_from_server(&rs,MAXCHAR);
       //printf("%p\n", &datastr);
 }
-
 void  parse_net_data(char** datastr, net_data* nd){
+      return;
+}
+
+void  parse_nd(char* datastr, net_data* nd){
        int record_flag =1;  int i=0;
        char* tok;  
-
-       tok = strtok(*datastr, " ");
+       tok = strtok(datastr, " ");
        while(tok != NULL){
-         ////printf("%s \n",strdup(tok));
          if(record_flag == 0){
-            if(i == 0) {nd->tx = atof(strdup(tok));//printf("%s ,",strdup(tok));}
-            if(i == 8) {nd->rx = atof(strdup(tok));//printf("%s \n",strdup(tok));}
+            printf("%s \n",strdup(tok));
+            if(i == 0) nd->tx = atof(strdup(tok));//printf("%s ,",strdup(tok));}
+            if(i == 8) nd->rx = atof(strdup(tok));//printf("%s \n",strdup(tok));}
             ++i;
          } 
-         if( strcmp(istr, tok) == 0  ) record_flag = 0;
+         if( strcmp("eth0:", tok) == 0  ) record_flag = 0;
          tok = strtok(NULL, " ");
-        }
       }
-    }
 }
 
 void get_net_data(net_data* nd){

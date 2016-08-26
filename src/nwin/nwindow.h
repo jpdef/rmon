@@ -21,8 +21,8 @@ enum COLOR{red, white, blue};
 
 
 class Nwindow{
-	int pos_x, pos_y, MAX_X = 0;
-	int prev_x,prev_y, MAX_Y =0 ;
+	int pos_x, pos_y, MAX_X ;
+	int prev_x,prev_y, MAX_Y;
   WINDOW* winptr;
 
     public:

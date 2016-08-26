@@ -21,7 +21,10 @@ using namespace std;
 
 
 class Nscreen{
-	int MAX_X,MAX_Y, numwindows;
+    public:
+	int MAX_X ;
+    int MAX_Y ;
+    int numwindows;
   SCREEN* scrptr;
   vector<Nwindow> nwindows;
   int cw;
